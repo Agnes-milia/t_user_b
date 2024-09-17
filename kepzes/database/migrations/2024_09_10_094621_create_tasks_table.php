@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Task;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,8 +21,39 @@ return new class extends Migration
             $table->boolean('status')->default(0);
             //itt így fogják hívni a mezőt, ott hogy hívják, melyik táblával...
             $table->foreignId('user_id')->references('id')->on('users');
+            $table->foreignId('project_id')->references('id')->on('users');
             $table->timestamps();
         });
+
+        Task::create([
+            'title' => 'AB módosítása', 
+            'description' => 'AB átszervezése', 
+            'end_date'=>now(),
+            'status'=> 0,
+            //!csak olyat, ami létezik!
+            'user_id'=>1,
+            'project_id'=>2
+        ]);
+
+        Task::create([
+            'title' => 'Frontend', 
+            'description' => 'Letisztult, felhasználóbarát', 
+            'end_date'=>'2025-02-20',
+            'status'=> 0,
+            //!csak olyat, ami létezik!
+            'user_id'=>2,
+            'project_id'=>2
+        ]);
+
+        Task::create([
+            'title' => 'Backend', 
+            'description' => 'MVC-nek megfelelni!', 
+            'end_date'=>'2025-02-20',
+            'status'=> 0,
+            //!csak olyat, ami létezik!
+            'user_id'=>2,
+            'project_id'=>2
+        ]);
     }
 
     /**
